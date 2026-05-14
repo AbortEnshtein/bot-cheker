@@ -1,0 +1,214 @@
+{
+  "log": {
+    "loglevel": "info"
+  },
+  "inbounds": [
+    {
+      "tag": "inbound-grpc",
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "29e6126f-8aff-439b-a7b3-5d04cf91985d",
+            "flow": ""
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "5post-gate.x5.ru:443",
+          "xver": 0,
+          "serverNames": ["5post-gate.x5.ru"],
+          "privateKey": "WPcMRVmIbu-ican55Roub_8okJLUJ0vm1WQ0YOWQpUg",
+          "shortIds": ["fd4505e7da7d4ae1"]
+        },
+        "grpcSettings": {
+          "serviceName": "5post-gate.x5.ru"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    {
+      "tag": "inbound-tcp",
+      "port": 8443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "441e5a23-a359-43fb-9803-60f16ced008d",
+            "flow": ""
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "max.ru:443",
+          "xver": 0,
+          "serverNames": ["max.ru"],
+          "privateKey": "WPcMRVmIbu-ican55Roub_8okJLUJ0vm1WQ0YOWQpUg",
+          "shortIds": ["fd4505e7da7d4ae1"]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    {
+      "tag": "inbound-ws",
+      "port": 8080,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "117cdb41-b473-4c3f-b546-13b5736ed4b4",
+            "flow": ""
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "stream-1.kinograd.online",
+          "fingerprint": "qq",
+          "alpn": ["h3", "h2", "http/1.1"]
+        },
+        "wsSettings": {
+          "path": "/live/stream?module=video-cdn&app_client_id=cc8c59b8-7c86-417b-a522-b0cc29fcc2f8",
+          "headers": {
+            "Host": "stream-1.kinograd.online"
+          }
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "relay-to-estonia-ws",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "5.101.118.73",
+            "port": 443,
+            "users": [
+              {
+                "id": "f7a7c0e4-c83a-4d01-b350-2e4496c811d6",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "max.ru",
+          "publicKey": "G0BfV-Euw1z4f6jLeUH1PuGss2wptw-2p33eebsE0Qc",
+          "shortId": "5460139e7757f3d0",
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "relay-to-estonia-grpc",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "5.101.118.73",
+            "port": 8443,
+            "users": [
+              {
+                "id": "ed166876-1718-4d08-80e1-7f97114b1a7e",
+                "encryption": "none",
+                "flow": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "5post-gate.x5.ru",
+          "publicKey": "G0BfV-Euw1z4f6jLeUH1PuGss2wptw-2p33eebsE0Qc",
+          "shortId": "5460139e7757f3d0",
+          "fingerprint": "chrome"
+        },
+        "grpcSettings": {
+          "serviceName": "5post-gate.x5.ru"
+        }
+      }
+    },
+    {
+      "tag": "relay-to-estonia-tcp",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "5.101.118.73",
+            "port": 443,
+            "users": [
+              {
+                "id": "f7a7c0e4-c83a-4d01-b350-2e4496c811d6",
+                "encryption": "none",
+                "flow": "xtls-rprx-vision"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "max.ru",
+          "publicKey": "G0BfV-Euw1z4f6jLeUH1PuGss2wptw-2p33eebsE0Qc",
+          "shortId": "5460139e7757f3d0",
+          "fingerprint": "chrome"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["inbound-ws"],
+        "outboundTag": "relay-to-estonia-ws"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["inbound-grpc"],
+        "outboundTag": "relay-to-estonia-grpc"
+      },
+      {
+        "type": "field",
+        "inboundTag": ["inbound-tcp"],
+        "outboundTag": "relay-to-estonia-tcp"
+      }
+    ]
+  }
+}
